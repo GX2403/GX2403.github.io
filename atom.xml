@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://GX2403.github.io</id>
+    <title>GX2403</title>
+    <updated>2021-02-03T06:32:50.844Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://GX2403.github.io"/>
+    <link rel="self" href="https://GX2403.github.io/atom.xml"/>
+    <subtitle>永远相信美好的明天即将到来</subtitle>
+    <logo>https://GX2403.github.io/images/avatar.png</logo>
+    <icon>https://GX2403.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, GX2403</rights>
+</feed>
