@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://GX2403.github.io</id>
     <title>GX2403</title>
-    <updated>2021-02-03T10:16:48.471Z</updated>
+    <updated>2021-02-03T11:57:32.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://GX2403.github.io"/>
     <link rel="self" href="https://GX2403.github.io/atom.xml"/>
@@ -11,18 +11,9 @@
     <icon>https://GX2403.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, GX2403</rights>
     <entry>
-        <title type="html"><![CDATA[留言板]]></title>
-        <id>https://GX2403.github.io/post/lyb/</id>
-        <link href="https://GX2403.github.io/post/lyb/">
-        </link>
-        <updated>2021-02-03T10:10:12.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="欢迎大家在这里留下你的意见或者想对博主说的话">欢迎大家在这里留下你的意见或者想对博主说的话📃🖊</h1>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[Welcome]]></title>
-        <id>https://GX2403.github.io/post/welcom/</id>
-        <link href="https://GX2403.github.io/post/welcom/">
+        <id>https://GX2403.github.io/post/welcome/</id>
+        <link href="https://GX2403.github.io/post/welcome/">
         </link>
         <updated>2021-02-03T06:43:07.000Z</updated>
         <content type="html"><![CDATA[<h1 id="欢迎来到gx2403的网站">欢迎来到GX2403的网站！</h1>
@@ -32,6 +23,15 @@
 <img src="https://GX2403.github.io/post-images/1612334817371.ico" alt="" loading="lazy"><br>
 网站Logo<br>
 <img src="https://GX2403.github.io/post-images/1612334803304.ico" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[留言板]]></title>
+        <id>https://GX2403.github.io/post/lyb/</id>
+        <link href="https://GX2403.github.io/post/lyb/">
+        </link>
+        <updated>2021-02-02T10:10:12.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="欢迎大家在这里留下你的意见或者想对博主说的话">欢迎大家在这里留下你的意见或者想对博主说的话📃🖊</h1>
 ]]></content>
     </entry>
 </feed>
