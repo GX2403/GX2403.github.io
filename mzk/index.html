@@ -127,6 +127,22 @@
     font-size: 0.8rem;
     color: var(--muted);
   }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.85rem;
+  }
+  .table th, .table td {
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    text-align: left;
+  }
+  .table th {
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    font-weight: 600;
+  }
 
   /* 主菜单卡片 */
   .menu-grid {
@@ -214,7 +230,7 @@
   <!-- ========== 主页面 ========== -->
   <div id="page-home" class="page active">
     <h1>晓山瑞希bot 指令帮助中心</h1>
-    <p class="subtitle">冲榜排表 · 画廊 · 队长 / 羁绊计算</p>
+    <p class="subtitle">自动改房号 · 画廊 · 队长 / 羁绊计算 · 点歌</p>
 
     <div class="notice">
       <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头（房号除外），不依赖唤醒词</div>
@@ -222,10 +238,10 @@
     </div>
 
     <div class="menu-grid">
-      <button type="button" class="menu-card" data-page="rank">
-        <div class="menu-card-title">PJSK 冲榜排表提醒</div>
-        <p class="menu-card-desc">房号、排班、班前/下班提醒、CN 对应、导出与停车等</p>
-        <span class="menu-card-cmd">/pjsk帮助</span>
+      <button type="button" class="menu-card" data-page="room">
+        <div class="menu-card-title">自动改房号</div>
+        <p class="menu-card-desc">发送房号自动改群名、后缀表情、清空 / 恢复 / 停车与静音</p>
+        <span class="menu-card-cmd">/房号帮助</span>
       </button>
 
       <button type="button" class="menu-card" data-page="gallery">
@@ -239,6 +255,12 @@
         <p class="menu-card-desc">队长 / EX 队长任务与羁绊等级计算</p>
         <span class="menu-card-cmd">/sekai帮助</span>
       </button>
+
+      <button type="button" class="menu-card" data-page="music">
+        <div class="menu-card-title">点歌功能</div>
+        <p class="menu-card-desc">网易云点歌、语音点歌、自然语言点歌与额度管理</p>
+        <span class="menu-card-cmd">/点歌帮助</span>
+      </button>
     </div>
 
     <div class="footer">
@@ -246,173 +268,75 @@
     </div>
   </div>
 
-  <!-- ========== 冲榜排表 ========== -->
-  <div id="page-rank" class="page">
+  <!-- ========== 自动改房号 ========== -->
+  <div id="page-room" class="page">
     <div class="back-bar">
       <button type="button" class="back-btn" data-back>← 返回</button>
-      <h2 class="page-title">PJSK 冲榜排表提醒</h2>
+      <h2 class="page-title">自动改房号</h2>
     </div>
 
     <div class="notice">
-      <div><span class="icon">⚠</span> 部分指令需要对应权限；插件管理员可用 <code>/addadmin</code> 添加</div>
-      <div>指令均需以 <strong>/</strong> 开头（房号除外），不依赖唤醒词</div>
-      <div>CN 对应一次后无需重复；填表时请使用与对应时相同的 CN</div>
-      <div>支持班前 10 分钟 / 下班前 2 分钟提醒；约 0 点推送今日排班图</div>
-      <div>房号支持后缀：龙/虾/撒 或 🐉/🦐/🍕（统一为表情写入群名）</div>
-      <div>插件面板可配置：群黑名单、改群名开关、排表开关、提醒开关</div>
+      <div><span class="icon">⚠</span> 修改群名需要 bot 为群管理员</div>
+      <div>插件面板可单独关闭「改群名功能」，关闭后仍可记录房号但不改群名</div>
+      <div>本群 /silenton 开启后也不再实际改群名</div>
+      <div>发送房号无需 / 前缀；其它指令需以 / 开头</div>
     </div>
 
     <div class="section">
-      <div class="section-title">所有人可用</div>
+      <div class="section-title">设置房号</div>
 
       <div class="item">
         <div class="cmd">单独发送五位数字房号</div>
-        <p class="desc">设置当前群房号并自动修改群名。已有房号时只替换房号段；可带后缀如 53616龙 → 53616🐉</p>
-        <p class="warn">⚠ 需要 bot 为群管理员（改群名时）</p>
-        <span class="ex">示例：12345　53616龙　53616🐉</span>
+        <p class="desc">设置当前群房号。群名中若已有五位房号（可带后缀），则<strong>只替换该房号</strong>；否则改为「房号 ⎮ 原群名」。</p>
+        <span class="ex">示例：12345</span>
       </div>
 
       <div class="item">
+        <div class="cmd">五位数字 + 后缀</div>
+        <p class="desc">支持文字或表情后缀，写入群名时<strong>统一为表情</strong>：</p>
+        <table class="table">
+          <tr><th>发送</th><th>群名中的房号</th></tr>
+          <tr><td>53616</td><td>53616</td></tr>
+          <tr><td>53616龙　或　53616🐉</td><td>53616🐉</td></tr>
+          <tr><td>53616虾　或　53616🦐</td><td>53616🦐</td></tr>
+          <tr><td>53616撒　或　53616🍕</td><td>53616🍕</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">相关指令</div>
+
+      <div class="item">
         <div class="cmd">/清空房号</div>
-        <p class="desc">清空当前群房号，群名改为「待开房 ⎮ 原群名」</p>
-        <p class="warn">⚠ 需要 bot 为群管理员</p>
+        <p class="desc">清空房号，群名改为「待开房 ⎮ 原群名」</p>
       </div>
 
       <div class="item">
         <div class="cmd">/恢复群名</div>
-        <p class="desc">将群名恢复为修改房号前记录的原群名，并清空房号记录</p>
-        <p class="warn">⚠ 需要 bot 为群管理员；需曾成功改过群名以缓存原名</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/查表</div>
-        <p class="desc">显示发送者在本群的未来排表图（高亮本人班次，多日合并为一条聊天记录）</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/cn对应 CN</div>
-        <p class="desc">添加/覆盖自己的 CN 到数据库</p>
-        <span class="ex">示例：/cn对应 南宮語墨</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/替换班表 月 日 时 CN1 CN2</div>
-        <p class="desc">替换/交换目标时间两名人员的排班（也可用 /dsb 或 /代上班）</p>
-        <span class="ex">示例：/替换班表 5 20 18 語墨 Akari</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/list</div>
-        <p class="desc">查看本群未来所有排班图（不特别高亮某人）</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/添加排表</div>
-        <p class="desc">进入个人填空模式：按提示发送时间段，自动填入空位。管理员可用完整参数直接覆盖添加。</p>
-        <div class="ex-block">添加示例：/添加排表
-（等待 bot 提示后）
-7 1 10 17
-7 2 10 返场</div>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/pjsk帮助</div>
-        <p class="desc">显示本帮助摘要（也可用 /排表帮助、/冲榜帮助）</p>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">插件管理员</div>
-
-      <div class="item">
-        <div class="cmd">/查表 CN</div>
-        <p class="desc">查看指定 CN 在本群的未来排表（需管理员权限）</p>
-        <span class="ex">示例：/查表 南宮語墨</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/创建排表</div>
-        <p class="desc">进入上传等待（5 分钟内有效），上传 .xlsx 覆盖指定群排班。表格：第一行群号；其后每行 月 日 时 人1~3，第 7 列返场。</p>
-        <p class="warn">⚠ 会覆盖该群已有全部排班数据；局部修改请用 /添加排表</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/导出排表</div>
-        <p class="desc">导出本群排表为 Excel 文件</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/计算推时</div>
-        <p class="desc">统计本群个人普推与返场时长，方便还推车</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/添加排表 月 日 时 CN1 CN2 CN3 [返场]</div>
-        <p class="desc">管理员手动添加/覆盖单条排班（第 4 人位为返场，可用「无」占位）</p>
-        <span class="ex">示例：/添加排表 5 20 18 語墨 无 无 洛忻</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/移除排表 月 日 时</div>
-        <p class="desc">删除指定时间的排班与提醒</p>
-        <span class="ex">示例：/移除排表 5 20 18</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/cn代对应 CN QQ号</div>
-        <p class="desc">为指定 QQ 添加/覆盖 CN 映射</p>
-        <span class="ex">示例：/cn代对应 語墨 123456789</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/cn列表本群</div>
-        <p class="desc">查看本群相关人员与 CN 的映射关系</p>
+        <p class="desc">恢复为修改房号前缓存的原群名，并清空房号记录</p>
+        <p class="warn">⚠ 需曾成功改过群名以缓存原名</p>
       </div>
 
       <div class="item">
         <div class="cmd">/auto</div>
-        <p class="desc">清空房号并将群名改为「AUTO中 ⎮ 原群名」</p>
-        <p class="warn">⚠ 需要 bot 为群管理员</p>
+        <p class="desc">清空房号，群名改为「AUTO中 ⎮ 原群名」</p>
       </div>
 
       <div class="item">
         <div class="cmd">/停车</div>
-        <p class="desc">清空本群未来排表，群名改为「辛苦了」，房号进入停车状态（再设房号需先恢复）</p>
-        <p class="warn">⚠ 需要 bot 为群管理员</p>
+        <p class="desc">清空未来排表，群名改为「辛苦了」，房号进入停车状态（需先恢复后再设房号）</p>
+        <p class="warn">⚠ 需要插件管理员权限</p>
       </div>
 
       <div class="item">
         <div class="cmd">/silenton · /silentoff</div>
-        <p class="desc">开启/关闭本群静音：开启后仍记房号，但不再实际修改群名提示</p>
+        <p class="desc">开启/关闭本群静音：开启后仍记录房号，但不修改群名</p>
       </div>
 
       <div class="item">
-        <div class="cmd">/启用排表功能 · /关闭排表功能</div>
-        <p class="desc">按群开关排表相关指令与提醒（面板另有全局开关）</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/取消下一次提醒</div>
-        <p class="desc">取消本群最近一次即将触发的班前提醒</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/测试提醒</div>
-        <p class="desc">立即发送一条班前 + 下班样式提醒，用于检查推送通道</p>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">超级管理员</div>
-
-      <div class="item">
-        <div class="cmd">/addadmin · /deladmin · /listadmin</div>
-        <p class="desc">添加/移除/列出插件管理员（QQ 号或已对应 CN）</p>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/listall · /cn列表</div>
-        <p class="desc">全群任务统计；导出全部 CN 映射表</p>
+        <div class="cmd">/房号帮助</div>
+        <p class="desc">显示本说明图片</p>
       </div>
     </div>
 
@@ -666,6 +590,136 @@
       <div class="item">
         <div class="cmd">/sekai帮助</div>
         <p class="desc">显示本帮助摘要</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
+
+  <!-- ========== 点歌 ========== -->
+  <div id="page-music" class="page">
+    <div class="back-bar">
+      <button type="button" class="back-btn" data-back>← 返回</button>
+      <h2 class="page-title">点歌功能</h2>
+    </div>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 指令必须以 <strong>/</strong> 开头，例如 <strong>/点歌</strong>、<strong>/语音点歌</strong>；没有 <strong>/</strong> 的“点歌”不会触发。</div>
+      <div>自然语言不需要 <strong>/</strong>，但需要唤醒词，例如“瑞希，我想听 歌名”。</div>
+      <div>只有明确说“语音点歌 / 用语音放 / 发语音”才会走语音，普通文字里出现“语音”不会误触。</div>
+      <div>PJSK 版本优先展示，原版紧随其后；普通用户每日次数由面板设置，管理员不限次数。</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">基础点歌</div>
+
+      <div class="item">
+        <div class="cmd">/点歌 歌名</div>
+        <p class="desc">搜索网易云音乐，回复候选面板，再回复数字选择歌曲。</p>
+        <span class="ex">示例：/点歌 アイディスマイル</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/点播 · /听歌 · /放歌 歌名</div>
+        <p class="desc">与 /点歌 相同，选择后默认发送网易云音乐卡片。</p>
+        <span class="ex">示例：/点播 夜に駆ける</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">瑞希，我想听 歌名</div>
+        <p class="desc">自然语言点歌，不需要 /，但需要唤醒词（默认：瑞希 / 瑞希酱 / mizuki）。</p>
+        <span class="ex">示例：瑞希，我想听 シャルル</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">瑞希 来一首 歌名</div>
+        <p class="desc">也可以使用“来一首 / 放一首 / 点歌”等自然说法，同样需要唤醒词。</p>
+        <span class="ex">示例：瑞希 来一首 千本桜</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">语音点歌</div>
+
+      <div class="item">
+        <div class="cmd">/语音点歌 歌名</div>
+        <p class="desc">选择歌曲后，把整首歌曲作为一条 QQ 语音发送，不拆分音频。</p>
+        <span class="ex">示例：/语音点歌 アイディスマイル</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/语音播放 · /用语音放 歌名</div>
+        <p class="desc">语音点歌的别名；仍需以 / 开头。</p>
+        <span class="ex">示例：/语音播放 夜に駆ける</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">瑞希，用语音放 歌名</div>
+        <p class="desc">自然语言语音点歌，不需要 /，但必须带唤醒词并使用明确的“用语音放”说法。</p>
+        <span class="ex">示例：瑞希，用语音放 シャルル</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">瑞希，语音点歌 歌名</div>
+        <p class="desc">自然语言也可以说“语音点歌 / 语音播放 / 语音放 / 发语音”。</p>
+        <span class="ex">示例：瑞希，语音点歌 千本桜</span>
+      </div>
+
+      <div class="item">
+        <p class="warn">语音发送失败时会自动改发音乐卡片，不会白扣次数。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">选择与取消</div>
+
+      <div class="item">
+        <div class="cmd">1 · 选1 · 第一首</div>
+        <p class="desc">在点歌面板后回复数字选择；只有发起人能选，默认 120 秒内有效。</p>
+        <span class="ex">示例：1</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">取消 · 算了 · 不用了</div>
+        <p class="desc">放弃本次点歌，不会扣除次数。</p>
+        <span class="ex">示例：取消</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">PJSK 优先规则</div>
+
+      <div class="item">
+        <div class="cmd">PJSK 版本 → 原版 → 其他版本</div>
+        <p class="desc">如果网易云有 PJSK 版本，会优先显示组合完整版，其次原版，再其次是 Another Vocal / 翻唱等。</p>
+        <span class="ex">示例：PJSK·25时 → 原版 → PJSK·角色</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">额度与帮助</div>
+
+      <div class="item">
+        <div class="cmd">/增加额度 @用户 [次数]</div>
+        <p class="desc">管理员专用：为被 @ 的用户增加当天可用额度；次数省略时默认增加 1 次。</p>
+        <span class="ex">示例：/增加额度 @小明 3</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/点歌额度</div>
+        <p class="desc">查看今日已点次数和剩余次数；管理员显示不限次数。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/点歌帮助</div>
+        <p class="desc">发送图片版指令帮助；图片发送失败时会自动退回文字版。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/网易云状态</div>
+        <p class="desc">管理员查看网易云账号登录、VIP 状态、今日点歌统计和语音设置。</p>
       </div>
     </div>
 
