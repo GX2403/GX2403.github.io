@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>晓山瑞希bot 指令帮助中心</title>
+<style>
+  :root {
+    --purple: #7c5cbf;
+    --purple-deep: #5b3d9e;
+    --purple-soft: #f3eefc;
+    --pink-soft: #faf5ff;
+    --warn-bg: #f8eef8;
+    --warn-border: #e8d4ea;
+    --text: #3d3550;
+    --muted: #8a7fa0;
+    --line: #efe8f6;
+    --pill-bg: #f0e8fa;
+    --pill-text: #6b4db0;
+    --ex-bg: #f7f0fb;
+    --card-bg: #fff;
+    --card-shadow: 0 4px 16px rgba(91, 61, 158, 0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #faf7ff 0%, #fff 40%);
+    color: var(--text);
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--purple-deep);
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+  .notice {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: #6a4a72;
+    margin-bottom: 28px;
+  }
+  .notice .icon { margin-right: 4px; }
+  .section {
+    margin-bottom: 8px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 6px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--purple-deep);
+  }
+  .section-title::before {
+    content: "";
+    width: 4px;
+    height: 1.1em;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #9b6de0, #c084fc);
+  }
+  .item {
+    padding: 16px 4px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .item:last-child { border-bottom: none; }
+  .cmd {
+    display: inline-block;
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .desc {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin: 0 0 6px;
+  }
+  .warn {
+    font-size: 0.82rem;
+    color: #b07a20;
+    margin: 4px 0;
+  }
+  .ex {
+    display: inline-block;
+    background: var(--ex-bg);
+    color: var(--muted);
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 8px;
+    margin-top: 4px;
+  }
+  .ex-block {
+    background: var(--ex-bg);
+    color: #6b6080;
+    font-size: 0.8rem;
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-top: 8px;
+    white-space: pre-wrap;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+  .footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* 主菜单卡片 */
+  .menu-grid {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .menu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.12s;
+    text-align: left;
+    width: 100%;
+    font: inherit;
+    color: inherit;
+  }
+  .menu-card:hover, .menu-card:focus-visible {
+    border-color: #c4a8f0;
+    box-shadow: 0 6px 20px rgba(91, 61, 158, 0.12);
+    outline: none;
+  }
+  .menu-card:active {
+    transform: scale(0.985);
+  }
+  .menu-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--purple-deep);
+    margin: 0 0 6px;
+  }
+  .menu-card-desc {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+  .menu-card-cmd {
+    display: inline-block;
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  /* 子页导航 */
+  .page { display: none; }
+  .page.active { display: block; }
+  .back-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .back-btn {
+    background: var(--pill-bg);
+    color: var(--pill-text);
+    border: none;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .back-btn:hover, .back-btn:focus-visible {
+    background: #e6d8f8;
+    outline: none;
+  }
+  .page-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--purple-deep);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ========== 主页面 ========== -->
+  <div id="page-home" class="page active">
+    <h1>晓山瑞希bot 指令帮助中心</h1>
+    <p class="subtitle">冲榜排表 · 画廊 · 队长 / 羁绊计算</p>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头（房号除外），不依赖唤醒词</div>
+      <div>部分指令需要对应权限；插件管理员可用 <code>/addadmin</code> 添加</div>
+    </div>
+
+    <div class="menu-grid">
+      <button type="button" class="menu-card" data-page="rank">
+        <div class="menu-card-title">PJSK 冲榜排表提醒</div>
+        <p class="menu-card-desc">房号、排班、班前/下班提醒、CN 对应、导出与停车等</p>
+        <span class="menu-card-cmd">/pjsk帮助</span>
+      </button>
+
+      <button type="button" class="menu-card" data-page="gallery">
+        <div class="menu-card-title">画廊功能</div>
+        <p class="menu-card-desc">画廊查看、上传、隐藏、别名、打包下载与管理</p>
+        <span class="menu-card-cmd">/画廊帮助</span>
+      </button>
+
+      <button type="button" class="menu-card" data-page="calc">
+        <div class="menu-card-title">PJSK 计算器</div>
+        <p class="menu-card-desc">队长 / EX 队长任务与羁绊等级计算</p>
+        <span class="menu-card-cmd">/sekai帮助</span>
+      </button>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
+
+  <!-- ========== 冲榜排表 ========== -->
+  <div id="page-rank" class="page">
+    <div class="back-bar">
+      <button type="button" class="back-btn" data-back>← 返回</button>
+      <h2 class="page-title">PJSK 冲榜排表提醒</h2>
+    </div>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 部分指令需要对应权限；插件管理员可用 <code>/addadmin</code> 添加</div>
+      <div>指令均需以 <strong>/</strong> 开头（房号除外），不依赖唤醒词</div>
+      <div>CN 对应一次后无需重复；填表时请使用与对应时相同的 CN</div>
+      <div>支持班前 10 分钟 / 下班前 2 分钟提醒；约 0 点推送今日排班图</div>
+      <div>房号支持后缀：龙/虾/撒 或 🐉/🦐/🍕（统一为表情写入群名）</div>
+      <div>插件面板可配置：群黑名单、改群名开关、排表开关、提醒开关</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">所有人可用</div>
+
+      <div class="item">
+        <div class="cmd">单独发送五位数字房号</div>
+        <p class="desc">设置当前群房号并自动修改群名。已有房号时只替换房号段；可带后缀如 53616龙 → 53616🐉</p>
+        <p class="warn">⚠ 需要 bot 为群管理员（改群名时）</p>
+        <span class="ex">示例：12345　53616龙　53616🐉</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/清空房号</div>
+        <p class="desc">清空当前群房号，群名改为「待开房 ⎮ 原群名」</p>
+        <p class="warn">⚠ 需要 bot 为群管理员</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/恢复群名</div>
+        <p class="desc">将群名恢复为修改房号前记录的原群名，并清空房号记录</p>
+        <p class="warn">⚠ 需要 bot 为群管理员；需曾成功改过群名以缓存原名</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/查表</div>
+        <p class="desc">显示发送者在本群的未来排表图（高亮本人班次，多日合并为一条聊天记录）</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/cn对应 CN</div>
+        <p class="desc">添加/覆盖自己的 CN 到数据库</p>
+        <span class="ex">示例：/cn对应 南宮語墨</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/替换班表 月 日 时 CN1 CN2</div>
+        <p class="desc">替换/交换目标时间两名人员的排班（也可用 /dsb 或 /代上班）</p>
+        <span class="ex">示例：/替换班表 5 20 18 語墨 Akari</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/list</div>
+        <p class="desc">查看本群未来所有排班图（不特别高亮某人）</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/添加排表</div>
+        <p class="desc">进入个人填空模式：按提示发送时间段，自动填入空位。管理员可用完整参数直接覆盖添加。</p>
+        <div class="ex-block">添加示例：/添加排表
+（等待 bot 提示后）
+7 1 10 17
+7 2 10 返场</div>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/pjsk帮助</div>
+        <p class="desc">显示本帮助摘要（也可用 /排表帮助、/冲榜帮助）</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">插件管理员</div>
+
+      <div class="item">
+        <div class="cmd">/查表 CN</div>
+        <p class="desc">查看指定 CN 在本群的未来排表（需管理员权限）</p>
+        <span class="ex">示例：/查表 南宮語墨</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/创建排表</div>
+        <p class="desc">进入上传等待（5 分钟内有效），上传 .xlsx 覆盖指定群排班。表格：第一行群号；其后每行 月 日 时 人1~3，第 7 列返场。</p>
+        <p class="warn">⚠ 会覆盖该群已有全部排班数据；局部修改请用 /添加排表</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/导出排表</div>
+        <p class="desc">导出本群排表为 Excel 文件</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/计算推时</div>
+        <p class="desc">统计本群个人普推与返场时长，方便还推车</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/添加排表 月 日 时 CN1 CN2 CN3 [返场]</div>
+        <p class="desc">管理员手动添加/覆盖单条排班（第 4 人位为返场，可用「无」占位）</p>
+        <span class="ex">示例：/添加排表 5 20 18 語墨 无 无 洛忻</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/移除排表 月 日 时</div>
+        <p class="desc">删除指定时间的排班与提醒</p>
+        <span class="ex">示例：/移除排表 5 20 18</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/cn代对应 CN QQ号</div>
+        <p class="desc">为指定 QQ 添加/覆盖 CN 映射</p>
+        <span class="ex">示例：/cn代对应 語墨 123456789</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/cn列表本群</div>
+        <p class="desc">查看本群相关人员与 CN 的映射关系</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/auto</div>
+        <p class="desc">清空房号并将群名改为「AUTO中 ⎮ 原群名」</p>
+        <p class="warn">⚠ 需要 bot 为群管理员</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/停车</div>
+        <p class="desc">清空本群未来排表，群名改为「辛苦了」，房号进入停车状态（再设房号需先恢复）</p>
+        <p class="warn">⚠ 需要 bot 为群管理员</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/silenton · /silentoff</div>
+        <p class="desc">开启/关闭本群静音：开启后仍记房号，但不再实际修改群名提示</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/启用排表功能 · /关闭排表功能</div>
+        <p class="desc">按群开关排表相关指令与提醒（面板另有全局开关）</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/取消下一次提醒</div>
+        <p class="desc">取消本群最近一次即将触发的班前提醒</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/测试提醒</div>
+        <p class="desc">立即发送一条班前 + 下班样式提醒，用于检查推送通道</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">超级管理员</div>
+
+      <div class="item">
+        <div class="cmd">/addadmin · /deladmin · /listadmin</div>
+        <p class="desc">添加/移除/列出插件管理员（QQ 号或已对应 CN）</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/listall · /cn列表</div>
+        <p class="desc">全群任务统计；导出全部 CN 映射表</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
+
+  <!-- ========== 画廊 ========== -->
+  <div id="page-gallery" class="page">
+    <div class="back-bar">
+      <button type="button" class="back-btn" data-back>← 返回</button>
+      <h2 class="page-title">画廊功能</h2>
+    </div>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 中文指令必须以 <strong>/</strong> 开头才会触发，避免误触聊天模型</div>
+      <div>指令与参数之间<strong>可无空格</strong>，如 <code>/看所有mzk</code>、<code>/看瑞希x3</code></div>
+      <div>可引用他人图片或聊天记录（合并转发）后发送上传指令</div>
+      <div>图片墙单页尽量展示 ≥100 张；画廊 ≤200 张时通常一张图发完</div>
+      <div>英文管理指令使用 <code>/gall …</code> 形式</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">查看</div>
+
+      <div class="item">
+        <div class="cmd">/看所有</div>
+        <p class="desc">所有画廊总览墙。已隐藏的画廊不会出现在总览中。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/看所有画廊名</div>
+        <p class="desc">查看指定画廊的缩略图墙（PID 标注）。可无空格；图多时自动分页，单页尽量 ≥100 张。</p>
+        <span class="ex">示例：/看所有mzk　/看所有 mzk</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/看画廊名</div>
+        <p class="desc">从指定画廊随机发送 1 张图。</p>
+        <span class="ex">示例：/看瑞希　/看 临风</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/看画廊名xN</div>
+        <p class="desc">随机看 N 张图，合并为一条消息发送。不重复抽样；默认最多 5 张，超出提示上限。</p>
+        <span class="ex">示例：/看瑞希x3　/看临风x5</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/看画廊名-N</div>
+        <p class="desc">查看该画廊倒数第 N 张图。</p>
+        <span class="ex">示例：/看mzk-1</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/看 PID [PID…]</div>
+        <p class="desc">按图片 ID 直接查看一张或多张。</p>
+        <span class="ex">示例：/看 123　/看 123 456</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">上传 / 撤销</div>
+
+      <div class="item">
+        <div class="cmd">/上传画廊名</div>
+        <p class="desc">将本条消息中的图片，或引用消息 / 聊天记录里的图片，上传到指定画廊。</p>
+        <p class="warn">⚠ 画廊需为 edit 模式，或由管理员操作</p>
+        <span class="ex">示例：/上传mzk　/上传 瑞希</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/上传画廊名 force</div>
+        <p class="desc">强制上传，跳过查重检测。</p>
+        <span class="ex">示例：/上传mzk force</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/取消上传</div>
+        <p class="desc">撤销自己最近一次上传（有时限，默认若干小时内）。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/取消上传记录ID</div>
+        <p class="desc">管理员撤销指定上传记录及其对应图片。</p>
+        <span class="ex">示例：/取消上传12</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/上传记录ID</div>
+        <p class="desc">查看某条上传记录详情（本人或管理员）。</p>
+        <span class="ex">示例：/上传记录12</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">画廊管理（管理员）</div>
+
+      <div class="item">
+        <div class="cmd">/gall open 名称</div>
+        <p class="desc">创建新画廊。</p>
+        <span class="ex">示例：/gall open mzk</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall close 名称</div>
+        <p class="desc">删除画廊记录及本地图片文件。</p>
+        <p class="warn">⚠ 不可恢复，请谨慎使用</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall mode 名称 [模式]</div>
+        <p class="desc">查看或设置画廊模式：edit（可上传）/ view（只读）/ off（关闭）。</p>
+        <span class="ex">示例：/gall mode mzk　/gall mode mzk view</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall hide 名称</div>
+        <p class="desc">隐藏画廊：不在 /看所有 总览中显示，仍可用 /看名称 直接访问。</p>
+        <span class="ex">示例：/gall hide mzk　或　/隐藏画廊mzk</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall show 名称</div>
+        <p class="desc">取消隐藏，重新出现在总览墙。</p>
+        <span class="ex">示例：/gall show mzk　或　/显示画廊mzk</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall alias add 名称 别名</div>
+        <p class="desc">给画廊添加别名，可用别名查看与上传。</p>
+        <span class="ex">示例：/gall alias add mzk 瑞希</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall alias del 名称 别名</div>
+        <p class="desc">删除画廊别名。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall reload 名称</div>
+        <p class="desc">扫描画廊目录，将新增本地图片入库（适合批量导入后刷新）。</p>
+        <span class="ex">示例：/gall reload mzk</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall download 名称</div>
+        <p class="desc">将指定画廊打包为 ZIP 并发送。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/gall log PID</div>
+        <p class="desc">查询某张图片的上传日志。</p>
+        <span class="ex">示例：/gall log 123</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">其他</div>
+
+      <div class="item">
+        <div class="cmd">/下载画廊</div>
+        <p class="desc">返回插件配置中的外部下载链接（share_link）。</p>
+        <p class="warn">⚠ 需管理员在面板中预先配置 share_link</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">批量导入本地图</div>
+        <p class="desc">将图片文件放入画廊目录后执行 /gall reload 名称 即可入库。</p>
+        <div class="ex-block">1. 创建画廊：/gall open mzk
+2. 把图片拷到 data/gallery_astrbot/mzk/
+3. /gall reload mzk</div>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/画廊帮助</div>
+        <p class="desc">显示本帮助摘要</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
+
+  <!-- ========== 计算器 ========== -->
+  <div id="page-calc" class="page">
+    <div class="back-bar">
+      <button type="button" class="back-btn" data-back>← 返回</button>
+      <h2 class="page-title">PJSK 计算器</h2>
+    </div>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头，不依赖唤醒词（改了默认唤醒词也可直接使用）</div>
+      <div>羁绊默认每把 S 评级，火倍率规则与游戏一致</div>
+      <div>方括号中的参数可选；不填火数量默认 0 火；有火数量但无用火把数时默认全部用火</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">队长任务</div>
+
+      <div class="item">
+        <div class="cmd">/leader 当前队长次数 每日次数 目标章数</div>
+        <p class="desc">计算升到目标等级所需天数（上限 50000）</p>
+        <span class="ex">示例：/leader 39 60 3</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/exp 当前队长次数 每日次数 游玩天数</div>
+        <p class="desc">计算游玩指定天数后能达到的等级</p>
+        <span class="ex">示例：/exp 39 60 31</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">EX队长任务</div>
+
+      <div class="item">
+        <div class="cmd">/exleader 当前EX队长次数 每日次数 目标章数</div>
+        <p class="desc">计算升到目标EX等级所需天数（上限 28500）</p>
+        <span class="ex">示例：/exleader 39 60 3</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/exexp 当前EX队长次数 每日次数 游玩天数</div>
+        <p class="desc">计算游玩指定天数后能达到的EX等级</p>
+        <span class="ex">示例：/exexp 39 60 31</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">羁绊等级</div>
+
+      <div class="item">
+        <div class="cmd">/kizuna 当前等级 距离下一级经验 每日把数 目标等级 [火数量] [用火把数]</div>
+        <p class="desc">计算羁绊升到目标等级所需天数</p>
+        <span class="ex">示例：/kizuna 39 1000 60 40 5 12</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/kizunadays 当前等级 距离下一级经验 每日把数 游玩天数 [火数量] [用火把数]</div>
+        <p class="desc">计算游玩指定天数后能达到的羁绊等级</p>
+        <span class="ex">示例：/kizunadays 39 1000 60 31 5 12</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">帮助</div>
+
+      <div class="item">
+        <div class="cmd">/sekai帮助</div>
+        <p class="desc">显示本帮助摘要</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var pages = document.querySelectorAll('.page');
+  function show(id) {
+    pages.forEach(function (p) {
+      p.classList.toggle('active', p.id === id);
+    });
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('[data-page]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      show('page-' + btn.getAttribute('data-page'));
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      show('page-home');
+    });
+  });
+})();
+</script>
+</body>
+</html>
