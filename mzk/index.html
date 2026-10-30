@@ -230,7 +230,7 @@
   <!-- ========== 主页面 ========== -->
   <div id="page-home" class="page active">
     <h1>晓山瑞希bot 指令帮助中心</h1>
-    <p class="subtitle">自动改房号 · 画廊 · 队长 / 羁绊计算 · 点歌</p>
+    <p class="subtitle">自动改房号 · 画廊 · 队长 / 羁绊计算 · 点歌 · 抽卡模拟</p>
 
     <div class="notice">
       <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头（房号除外），不依赖唤醒词</div>
@@ -260,6 +260,12 @@
         <div class="menu-card-title">点歌功能</div>
         <p class="menu-card-desc">网易云点歌、语音点歌、自然语言点歌与额度管理</p>
         <span class="menu-card-cmd">/点歌帮助</span>
+      </button>
+
+      <button type="button" class="menu-card" data-page="gacha">
+        <div class="menu-card-title">PJSK 抽卡模拟</div>
+        <p class="menu-card-desc">日服 / 国服抽卡、Wish、累计记录与卡池数据</p>
+        <span class="menu-card-cmd">/抽卡帮助</span>
       </button>
     </div>
 
@@ -727,6 +733,93 @@
       作者 · 南宮語墨
     </div>
   </div>
+
+  <!-- ========== 抽卡模拟 ========== -->
+  <div id="page-gacha" class="page">
+    <div class="back-bar">
+      <button type="button" class="back-btn" data-back>← 返回</button>
+      <h2 class="page-title">PJSK 抽卡模拟</h2>
+    </div>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头，不依赖唤醒词</div>
+      <div>支持日服 / 国服；卡面走官方 CDN，概率含保底与 Wish / Dream Pick</div>
+      <div>单次最高 <strong>100</strong> 抽；超过 20 抽按每 20 抽一张图，合并为聊天记录发送</div>
+      <div>累计记录按「用户 + 区服 + 卡池」分别保存</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">抽卡模拟</div>
+
+      <div class="item">
+        <div class="cmd">/抽卡模拟 [卡池ID] [次数]</div>
+        <p class="desc">日服抽卡模拟。默认当前卡池十连；次数 1–100。未写卡池 ID 时抽当前开放池。</p>
+        <span class="ex">示例：/抽卡模拟　/抽卡模拟 700　/抽卡模拟 700 50　/抽卡模拟 100</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/cn抽卡模拟 [卡池ID] [次数]</div>
+        <p class="desc">国服抽卡模拟，逻辑同上。</p>
+        <span class="ex">示例：/cn抽卡模拟　/cn抽卡模拟 123　/cn抽卡模拟 123 40</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/查卡池 · /cn查卡池</div>
+        <p class="desc">查看日服 / 国服当前开放卡池列表与卡池 ID。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Wish / Dream Pick</div>
+
+      <div class="item">
+        <div class="cmd">/抽卡模拟 [卡池ID] wish</div>
+        <p class="desc">查看该卡池可 Wish 的卡牌（图片展示）。国服加 cn 前缀。</p>
+        <span class="ex">示例：/cn抽卡模拟 wish　/cn抽卡模拟 123 wish</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/抽卡模拟 [卡池ID] wish 卡ID…</div>
+        <p class="desc">设置 Wish 自选卡（数量受卡池限制）。选择按用户与卡池保存。</p>
+        <span class="ex">示例：/cn抽卡模拟 123 wish 1204 1301</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/抽卡模拟 [卡池ID] wish 清空</div>
+        <p class="desc">清空当前用户在该卡池的 Wish 选择。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">记录与数据</div>
+
+      <div class="item">
+        <div class="cmd">累计记录（自动）</div>
+        <p class="desc">结果图显示累计抽数 / ★4 / ★3 / 当期 UP。当期卡池期间不删；结束后或非当期卡池，7 天无新纪录自动删除。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/抽卡模拟 [卡池ID] 清空记录</div>
+        <p class="desc">手动清空本人在该卡池的累计抽卡记录。</p>
+        <span class="ex">示例：/cn抽卡模拟 123 清空记录</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/刷新卡池数据 · /cn刷新卡池数据</div>
+        <p class="desc">强制刷新日服 / 国服 master data 缓存。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/抽卡帮助</div>
+        <p class="desc">显示本帮助图（也可用 /pjsk抽卡帮助、/gachahelp）。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
+
 
 </div>
 
