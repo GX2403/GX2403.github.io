@@ -744,28 +744,34 @@
     <div class="notice">
       <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头，不依赖唤醒词</div>
       <div>默认 <strong>国服</strong>；日服请加 <strong>jp</strong> 前缀（如 /jp抽卡模拟）</div>
-      <div>单次最高 100 抽；超过 20 抽按每 20 抽一张图，合并为聊天记录发送</div>
-      <div>支持 WebUI 配置：用户/群黑名单、高抽数仅四星汇总、全局限流等</div>
+      <div>必须指定 <strong>卡池ID</strong> 或关键词 <strong>当期</strong>；两个数字时：第 1 个=卡池ID，第 2 个=次数</div>
+      <div>单次最高 <strong>100</strong> 抽；超过上限会明确提示，不会当成卡池 ID</div>
     </div>
 
     <div class="section">
       <div class="section-title">抽卡模拟</div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 [卡池ID] [次数]</div>
-        <p class="desc">国服抽卡模拟（默认）。默认当前卡池十连；次数 1–100。</p>
-        <span class="ex">示例：/抽卡模拟　/抽卡模拟 123　/抽卡模拟 123 40　/抽卡模拟 100</span>
+        <div class="cmd">/抽卡模拟 卡池ID [次数]</div>
+        <p class="desc">国服：按卡池 ID 抽取。只写卡池 ID 时默认 10 抽；次数 1–100。</p>
+        <span class="ex">示例：/抽卡模拟 123　/抽卡模拟 123 40　/抽卡模拟 123 100</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/jp抽卡模拟 [卡池ID] [次数]</div>
-        <p class="desc">日服抽卡模拟（必须带 jp 前缀）。</p>
-        <span class="ex">示例：/jp抽卡模拟　/jp抽卡模拟 700　/jp抽卡模拟 700 50</span>
+        <div class="cmd">/抽卡模拟 当期 [次数]</div>
+        <p class="desc">国服：抽取当前开放卡池。必须写「当期」，不能只写次数。</p>
+        <span class="ex">示例：/抽卡模拟 当期　/抽卡模拟 当期 50</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/jp抽卡模拟 卡池ID|当期 [次数]</div>
+        <p class="desc">日服抽卡（必须带 jp 前缀），参数规则同上。</p>
+        <span class="ex">示例：/jp抽卡模拟 700 10　/jp抽卡模拟 当期 20</span>
       </div>
 
       <div class="item">
         <div class="cmd">/查卡池 · /jp查卡池</div>
-        <p class="desc">查看国服 / 日服当前开放卡池列表与卡池 ID。</p>
+        <p class="desc">查看国服 / 日服当前开放卡池。可在 WebUI 中关闭该指令。</p>
       </div>
     </div>
 
@@ -773,19 +779,19 @@
       <div class="section-title">Wish / Dream Pick</div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 [卡池ID] wish</div>
-        <p class="desc">查看该卡池可 Wish 的卡牌（图片）。日服用 /jp抽卡模拟 … wish。</p>
-        <span class="ex">示例：/抽卡模拟 wish　/抽卡模拟 123 wish</span>
+        <div class="cmd">/抽卡模拟 卡池ID|当期 wish</div>
+        <p class="desc">查看可 Wish 卡牌（图片）。日服用 /jp抽卡模拟 … wish。</p>
+        <span class="ex">示例：/抽卡模拟 123 wish　/抽卡模拟 当期 wish</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 [卡池ID] wish 卡ID…</div>
-        <p class="desc">设置 Wish 自选卡（数量受卡池限制）。按用户与卡池保存。</p>
+        <div class="cmd">/抽卡模拟 卡池ID wish 卡ID…</div>
+        <p class="desc">设置 Wish 自选卡；按用户与卡池保存。</p>
         <span class="ex">示例：/抽卡模拟 123 wish 1204 1301</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 [卡池ID] wish 清空</div>
+        <div class="cmd">/抽卡模拟 卡池ID wish 清空</div>
         <p class="desc">清空当前用户在该卡池的 Wish 选择。</p>
       </div>
     </div>
@@ -795,13 +801,12 @@
 
       <div class="item">
         <div class="cmd">累计记录（自动）</div>
-        <p class="desc">结果图显示累计抽数 / ★4 / ★3 / 当期 UP。按用户+区服+卡池保存；非当期或结束后 7 天无新纪录自动删除。</p>
+        <p class="desc">结果图显示累计抽数 / ★4 / ★3 / 当期 UP。按用户+区服+卡池保存。</p>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 [卡池ID] 清空记录</div>
+        <div class="cmd">/抽卡模拟 卡池ID|当期 清空记录</div>
         <p class="desc">清空本人在该卡池的累计记录。</p>
-        <span class="ex">示例：/抽卡模拟 123 清空记录</span>
       </div>
 
       <div class="item">
