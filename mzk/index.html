@@ -900,6 +900,11 @@
       </div>
 
       <div class="item">
+        <div class="cmd">不写 #卡ID ＝ 当期四星优先</div>
+        <p class="desc">预览组卡的目的是「看未持有卡打多少」：WL 默认当期 5 张四星（没有的按 JP 数据虚拟合成）；箱活把当期四星全部上，缺的位置用持有卡补齐（按预估 PT 选，角色不重复）。</p>
+      </div>
+
+      <div class="item">
         <div class="cmd">… 对账</div>
         <p class="desc">额外回一条明细：加成 / 实效 / 系数 / 自己分数 / 队友分数 / 活跃加分 / 基础PT / 火倍率，逐项拆开方便自查。</p>
         <span class="ex">示例：/预览组卡 wl3 mzk 虾 10火 队友实效200 270s6 对账</span>
@@ -921,7 +926,9 @@
         <tr><td>曲目</td><td><code>虾 / 龙 / 红虾</code></td><td>虾 = #74 expert；龙 = #226 <strong>hard（黄谱）</strong>，可写 <code>龙mas</code> / <code>龙exp</code> 切难度；不写走 omakase 全曲平均</td></tr>
         <tr><td>难度</td><td><code>ex / mas / apd / hd</code></td><td>也可以单独写难度</td></tr>
         <tr><td>火罐</td><td><code>10火 / 5火 / 7火</code></td><td>只影响 PT 倍率：1–5 火 = 5×N，6–10 火 = 27/29/31/33/35</td></tr>
-        <tr><td>自身综合力</td><td><code>个人综合力373000</code></td><td>不写默认 <strong>30w</strong></td></tr>
+        <tr><td>自身综合力</td><td><code>个人综合力373000</code></td><td>不写＝真实综合力（基础＋区域道具＋角色等级＋烤森玩偶＋大门＋称号，WL3 封顶 336000）；写了才用你给的值</td></tr>
+        <tr><td>手填加成</td><td><code>区域30 等级5 玩偶3 门4</code></td><td>Suite 没带区域道具等级时用，按 <code>基础×(1+区域+等级+玩偶+门)</code> 计算</td></tr>
+        <tr><td>画布</td><td><code>画布</code></td><td>把烤森画布的固定加成算进基础（userMysekaiCanvases 决定哪张卡有画布）</td></tr>
         <tr><td>队友</td><td><code>队友实效230 / 队友综合250000</code></td><td>不写默认实效 <strong>200</strong>、综合 <strong>25w</strong>；四人按同强度算</td></tr>
         <tr><td>S6 固定</td><td><code>270s6 / s6=270</code></td><td>把一个队友实效设为 270，并让第 6 次技能固定由他触发</td></tr>
         <tr><td>吸取策略</td><td><code>最大吸取 / 最小吸取 / 平均吸取</code></td><td>bfes 花前「吸取」怎么取其他成员的技能，默认平均</td></tr>
