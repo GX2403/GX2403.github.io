@@ -230,7 +230,7 @@
   <!-- ========== 主页面 ========== -->
   <div id="page-home" class="page active">
     <h1>晓山瑞希bot 指令帮助中心</h1>
-    <p class="subtitle">自动改房号 · 画廊 · 队长 / 羁绊计算 · 点歌 · 抽卡模拟</p>
+    <p class="subtitle">自动改房号 · 画廊 · 队长 / 羁绊计算 · 点歌 · 抽卡模拟 · 预览组卡</p>
 
     <div class="notice">
       <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头（房号除外），不依赖唤醒词</div>
@@ -266,6 +266,12 @@
         <div class="menu-card-title">PJSK 抽卡模拟</div>
         <p class="menu-card-desc">日服 / 国服抽卡、Wish、累计记录与卡池数据</p>
         <span class="menu-card-cmd">/抽卡帮助</span>
+      </button>
+
+      <button type="button" class="menu-card" data-page="preview">
+        <div class="menu-card-title">PJSK 预览组卡 · WL支援</div>
+        <p class="menu-card-desc">WL 支援加成一览、预览组卡、实效与活动 PT 估算（含团分 / bfes 特殊技能）</p>
+        <span class="menu-card-cmd">/pjsk帮助</span>
       </button>
     </div>
 
@@ -743,35 +749,29 @@
 
     <div class="notice">
       <div><span class="icon">⚠</span> 指令均需以 <strong>/</strong> 开头，不依赖唤醒词</div>
-      <div>默认 <strong>国服</strong>；日服请加 <strong>jp</strong> 前缀（如 /jp抽卡模拟）</div>
-      <div>必须指定 <strong>卡池ID</strong> 或关键词 <strong>当期</strong>；两个数字时：第 1 个=卡池ID，第 2 个=次数</div>
-      <div>单次最高 <strong>100</strong> 抽；超过上限会明确提示，不会当成卡池 ID</div>
+      <div>支持日服 / 国服；卡面走官方 CDN，概率含保底与 Wish / Dream Pick</div>
+      <div>单次最高 <strong>100</strong> 抽；超过 20 抽按每 20 抽一张图，合并为聊天记录发送</div>
+      <div>累计记录按「用户 + 区服 + 卡池」分别保存</div>
     </div>
 
     <div class="section">
       <div class="section-title">抽卡模拟</div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 卡池ID [次数]</div>
-        <p class="desc">国服：按卡池 ID 抽取。只写卡池 ID 时默认 10 抽；次数 1–100。</p>
-        <span class="ex">示例：/抽卡模拟 123　/抽卡模拟 123 40　/抽卡模拟 123 100</span>
+        <div class="cmd">/抽卡模拟 [卡池ID] [次数]</div>
+        <p class="desc">日服抽卡模拟。默认当前卡池十连；次数 1–100。未写卡池 ID 时抽当前开放池。</p>
+        <span class="ex">示例：/抽卡模拟　/抽卡模拟 700　/抽卡模拟 700 50　/抽卡模拟 100</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 当期 [次数]</div>
-        <p class="desc">国服：抽取当前开放卡池。必须写「当期」，不能只写次数。</p>
-        <span class="ex">示例：/抽卡模拟 当期　/抽卡模拟 当期 50</span>
+        <div class="cmd">/cn抽卡模拟 [卡池ID] [次数]</div>
+        <p class="desc">国服抽卡模拟，逻辑同上。</p>
+        <span class="ex">示例：/cn抽卡模拟　/cn抽卡模拟 123　/cn抽卡模拟 123 40</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/jp抽卡模拟 卡池ID|当期 [次数]</div>
-        <p class="desc">日服抽卡（必须带 jp 前缀），参数规则同上。</p>
-        <span class="ex">示例：/jp抽卡模拟 700 10　/jp抽卡模拟 当期 20</span>
-      </div>
-
-      <div class="item">
-        <div class="cmd">/查卡池 · /jp查卡池</div>
-        <p class="desc">查看国服 / 日服当前开放卡池。可在 WebUI 中关闭该指令。</p>
+        <div class="cmd">/查卡池 · /cn查卡池</div>
+        <p class="desc">查看日服 / 国服当前开放卡池列表与卡池 ID。</p>
       </div>
     </div>
 
@@ -779,19 +779,19 @@
       <div class="section-title">Wish / Dream Pick</div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 卡池ID|当期 wish</div>
-        <p class="desc">查看可 Wish 卡牌（图片）。日服用 /jp抽卡模拟 … wish。</p>
-        <span class="ex">示例：/抽卡模拟 123 wish　/抽卡模拟 当期 wish</span>
+        <div class="cmd">/抽卡模拟 [卡池ID] wish</div>
+        <p class="desc">查看该卡池可 Wish 的卡牌（图片展示）。国服加 cn 前缀。</p>
+        <span class="ex">示例：/cn抽卡模拟 wish　/cn抽卡模拟 123 wish</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 卡池ID wish 卡ID…</div>
-        <p class="desc">设置 Wish 自选卡；按用户与卡池保存。</p>
-        <span class="ex">示例：/抽卡模拟 123 wish 1204 1301</span>
+        <div class="cmd">/抽卡模拟 [卡池ID] wish 卡ID…</div>
+        <p class="desc">设置 Wish 自选卡（数量受卡池限制）。选择按用户与卡池保存。</p>
+        <span class="ex">示例：/cn抽卡模拟 123 wish 1204 1301</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 卡池ID wish 清空</div>
+        <div class="cmd">/抽卡模拟 [卡池ID] wish 清空</div>
         <p class="desc">清空当前用户在该卡池的 Wish 选择。</p>
       </div>
     </div>
@@ -801,17 +801,18 @@
 
       <div class="item">
         <div class="cmd">累计记录（自动）</div>
-        <p class="desc">结果图显示累计抽数 / ★4 / ★3 / 当期 UP。按用户+区服+卡池保存。</p>
+        <p class="desc">结果图显示累计抽数 / ★4 / ★3 / 当期 UP。当期卡池期间不删；结束后或非当期卡池，7 天无新纪录自动删除。</p>
       </div>
 
       <div class="item">
-        <div class="cmd">/抽卡模拟 卡池ID|当期 清空记录</div>
-        <p class="desc">清空本人在该卡池的累计记录。</p>
+        <div class="cmd">/抽卡模拟 [卡池ID] 清空记录</div>
+        <p class="desc">手动清空本人在该卡池的累计抽卡记录。</p>
+        <span class="ex">示例：/cn抽卡模拟 123 清空记录</span>
       </div>
 
       <div class="item">
-        <div class="cmd">/刷新卡池数据 · /jp刷新卡池数据</div>
-        <p class="desc">强制刷新国服 / 日服 master data 缓存。</p>
+        <div class="cmd">/刷新卡池数据 · /cn刷新卡池数据</div>
+        <p class="desc">强制刷新日服 / 国服 master data 缓存。</p>
       </div>
 
       <div class="item">
@@ -825,6 +826,199 @@
     </div>
   </div>
 
+
+  <!-- ========== 预览组卡 / WL支援 ========== -->
+  <div id="page-preview" class="page">
+    <div class="back-bar">
+      <button type="button" class="back-btn" data-back>← 返回</button>
+      <h2 class="page-title">PJSK 预览组卡 · WL支援</h2>
+    </div>
+
+    <div class="notice">
+      <div><span class="icon">⚠</span> 指令必须带前缀：<strong>/预览组卡 …</strong> 或 <strong>@机器人 预览组卡 …</strong>；纯文本不触发</div>
+      <div>玩家数据用 Haruki 公开 Suite（先 <code>/pjsk绑定</code>）；活动规则用日服 master；技能系数用 music_metas</div>
+      <div>只算协力；同一时刻只算一个，算完直接出图；箱活（普通活动）没有支援卡组</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">绑定与状态</div>
+
+      <div class="item">
+        <div class="cmd">/pjsk绑定 区服 UID</div>
+        <p class="desc">绑定游戏 UID，之后所有指令默认用这个 UID。</p>
+        <span class="ex">示例：/pjsk绑定 cn 123456789</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/pjsk绑定 · /pjsk解绑 区服</div>
+        <p class="desc">不带参数查看当前绑定；解绑某个区服（不带区服则全部解绑）。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/pjsk状态</div>
+        <p class="desc">Master 镜像与缓存年龄、music_metas 是否就绪、Suite 缓存、卡面缓存命中、当前计算队列。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">WL 支援</div>
+
+      <div class="item">
+        <div class="cmd">/wl支援 角色 [wl1|wl2|wl3]</div>
+        <p class="desc">按「稀有度 + 专精 MR + 技能 SLv + 往期 WL 限定表」逐卡累加，默认排除当期活动卡。</p>
+        <p class="desc">支援张数按 WL 回合：<strong>WL1 = 12 / WL2 = 20 / WL3 = 25</strong>；支援卡不能和前排重复；加成表优先 WL 分表。</p>
+        <span class="ex">示例：/wl支援 mzk　/wl支援 cn mzk wl3　/cn wl支援 瑞希 wl3</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">… 含当期</div>
+        <p class="desc">把当期活动卡也算进支援（默认排除）。</p>
+        <span class="ex">示例：/wl支援 mzk 含当期</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">预览组卡</div>
+
+      <div class="item">
+        <div class="cmd">/预览组卡 wl序号 角色 [参数…]</div>
+        <p class="desc">用 wl1/wl2/wl3 + 角色时，自动解析该角色第 N 次 WL 篇章对应的活动。</p>
+        <div class="ex-block">/预览组卡 wl3 mzk 满破 满技能 虾 10火 个人综合力310000 队友实效200 队友综合250000 270s6</div>
+      </div>
+
+      <div class="item">
+        <div class="cmd">/预览组卡 活动ID 角色 [参数…]</div>
+        <p class="desc">直接写活动 ID。箱活（普通活动）只算前排，不算支援。</p>
+        <span class="ex">示例：/预览组卡 214 nene 满破</span>
+      </div>
+
+      <div class="item">
+        <div class="cmd">#卡ID 卡id/技能N …（固定前排）</div>
+        <p class="desc"><code>#</code> 之后每一项可以是 <code>卡id</code> 或 <code>卡id/技能N</code>（也认 <code>卡id/s3</code>），最多 5 张。</p>
+        <p class="desc">虚拟卡（Suite 里没有）等级给满、突破默认 0、技能默认 1 级；持有卡按自己 Suite 的养成数据。</p>
+        <div class="ex-block">/预览组卡198 满破 个人综合373000 队友实效230 虾 ex 5火#348 1169/技能4 1339/技能4 1340/技能3 1341/技能3</div>
+      </div>
+
+      <div class="item">
+        <div class="cmd">… 对账</div>
+        <p class="desc">额外回一条明细：加成 / 实效 / 系数 / 自己分数 / 队友分数 / 活跃加分 / 基础PT / 火倍率，逐项拆开方便自查。</p>
+        <span class="ex">示例：/预览组卡 wl3 mzk 虾 10火 队友实效200 270s6 对账</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">参数表</div>
+
+      <table class="table">
+        <tr><th style="width:30%">参数</th><th style="width:30%">举例</th><th>说明</th></tr>
+        <tr><td>篇章</td><td><code>wl1 / wl2 / wl3</code> + 角色</td><td>自动解析篇章活动；必须带角色，两者同时写以 wl 为准</td></tr>
+        <tr><td>活动 ID</td><td><code>214</code></td><td>直接指定活动；数字 1–26 会被当成角色 ID</td></tr>
+        <tr><td>角色</td><td><code>mzk ena knd tks akt hmn</code></td><td>英文缩写 / 全名 / 中文名 / ID(1-26) 都认</td></tr>
+        <tr><td>突破</td><td><code>满破 / 专3 / MR4</code></td><td>只改突破等级（满破 = MR5）；不写则持有卡用自身、虚拟卡 0</td></tr>
+        <tr><td>技能</td><td><code>满技能 / 技能2 / SLv3</code></td><td>全局技能等级；不写则持有卡用自身、虚拟卡 1 级</td></tr>
+        <tr><td>逐卡技能</td><td><code>卡id/技能4</code></td><td>优先级最高，压过「满技能」与配置里的强制值</td></tr>
+        <tr><td>剧情</td><td><code>已读 / 未读</code></td><td>前后篇是否已读（影响卡面数值）</td></tr>
+        <tr><td>曲目</td><td><code>虾 / 龙 / 红虾</code></td><td>虾 = #74 expert；龙 = #226 <strong>hard（黄谱）</strong>，可写 <code>龙mas</code> / <code>龙exp</code> 切难度；不写走 omakase 全曲平均</td></tr>
+        <tr><td>难度</td><td><code>ex / mas / apd / hd</code></td><td>也可以单独写难度</td></tr>
+        <tr><td>火罐</td><td><code>10火 / 5火 / 7火</code></td><td>只影响 PT 倍率：1–5 火 = 5×N，6–10 火 = 27/29/31/33/35</td></tr>
+        <tr><td>自身综合力</td><td><code>个人综合力373000</code></td><td>不写默认 <strong>30w</strong></td></tr>
+        <tr><td>队友</td><td><code>队友实效230 / 队友综合250000</code></td><td>不写默认实效 <strong>200</strong>、综合 <strong>25w</strong>；四人按同强度算</td></tr>
+        <tr><td>S6 固定</td><td><code>270s6 / s6=270</code></td><td>把一个队友实效设为 270，并让第 6 次技能固定由他触发</td></tr>
+        <tr><td>吸取策略</td><td><code>最大吸取 / 最小吸取 / 平均吸取</code></td><td>bfes 花前「吸取」怎么取其他成员的技能，默认平均</td></tr>
+        <tr><td>技能形态</td><td><code>花前 / 花后</code></td><td>强制用花前或花后技能；默认按规则择优</td></tr>
+        <tr><td>支援当期</td><td><code>含当期 / 排除当期</code></td><td>支援卡组是否包含当期活动卡，默认排除</td></tr>
+        <tr><td>模式</td><td><code>单人 / 协力</code></td><td>本插件只算协力；写「单人」也按协力算并提示</td></tr>
+        <tr><td>对账</td><td><code>对账</code></td><td>额外回一条中间量明细，逐项拆开方便自查</td></tr>
+      </table>
+
+      <div class="item">
+        <div class="cmd">角色英文缩写</div>
+        <p class="desc">ick saki hmn shiho ／ mnr hrk airi szk ／ khn an akt toya ／ tks emu nene rui ／ knd mfy ena mzk ／ miku rin len luka meiko kaito</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">实效算法（含特殊技能）</div>
+
+      <div class="item">
+        <p class="desc"><strong>实效 = 队长技能 + 其余四张技能 / 5</strong>，其中每张卡的技能值要带卡组上下文计算：</p>
+        <table class="table">
+          <tr><th style="width:32%">类型</th><th>算法</th></tr>
+          <tr><td>普通 / 条件 / 持续</td><td>取该 SLv 的 activateEffectValue</td></tr>
+          <tr><td>团分（同团加成）</td><td>除自身外每名同团成员 +X，五人同团再 +X。例：MMJ 的 #547（基础 100，每名 +10）在五张 MMJ 时 = <strong>150</strong></td></tr>
+          <tr><td>bfes 花前（吸取）</td><td>基础 + min(floor(其他卡实效 × rate/100), max)；默认平均，可切最大 / 最小</td></tr>
+          <tr><td>bfes 花后（角色等级）</td><td>基础 110%，角色等级<strong>每 2 级 +1%</strong>，最多 +50%（封顶 <strong>160%</strong>，100 级吃满）；0/1 级只有基础值。等级取 Suite 的 characterRank</td></tr>
+          <tr><td>bfes V 家（异组）</td><td>按「不同组合数」加值</td></tr>
+        </table>
+      </div>
+
+      <div class="item">
+        <div class="cmd">花前 / 花后怎么选</div>
+        <p class="desc">两者是两张技能表（skillId 与 specialTrainingSkillId）。花后的实际值<strong>高于花前「最小吸取」</strong>时用花后，否则用花前（按吸取策略）；出图时卡面会切换成对应的特训前 / 特训后，并标注「花后」。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">S6（第六次技能）</div>
+        <p class="desc">协力 6 次触发，默认 S6 随机一人（按平均实效算）；写 <code>270s6</code> 则 S6 固定吃那个队友的实效。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">PT 算法</div>
+
+      <div class="item">
+        <div class="ex-block">实效      = 队长技能 + (其余四张技能之和)/5
+rate自己  = base_score + fever×0.5 + (实效×Σskill_score_multi[0:5] + S6实效×skill_score_multi[5])/100
+rate队友  = base_score + fever×0.5 + 队友实效×Σskill_score_multi/100
+自己分数  = floor(rate自己 × 自己综合力 × 4 + 5×1.5%×(自己+4×队友综合力))
+队友分数  = floor(rate队友 × 队友综合力 × 4 + 同一 activeBonus)
+基础PT    = 110 + 自己分数/17000 + min(13, 4×队友分数/340000)
+PT        = floor(基础PT × 歌曲event_rate/100 × (1+加成/100)) × 火倍率</div>
+        <p class="desc">加成 = 活动加成（+ WL 支援加成）；火倍率：1–5 火 = 5×N，6–10 火 = 27/29/31/33/35。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">提示与限流</div>
+
+      <table class="table">
+        <tr><th style="width:38%">提示</th><th>含义 / 处理</th></tr>
+        <tr><td>正在组卡计算（活动#… · MR… · 曲…）</td><td>已开始算，稍候出图</td></tr>
+        <tr><td>上一条还在算（已 Ns）</td><td>同一个人同时只跑一条，等这条出图再发</td></tr>
+        <tr><td>前面还有 N 条在排队</td><td>全局同一时刻只算一个，队列上限 3</td></tr>
+        <tr><td>计算超时</td><td>缩小范围：用固定卡 <code>#卡ID</code>，或加「保持养成」跳过替换</td></tr>
+        <tr><td>数据准备超时</td><td>Master / Suite 拉不下来，看 <code>/pjsk状态</code> 的镜像与缓存</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">常见问题</div>
+
+      <div class="item">
+        <div class="cmd">支援加成怎么比游戏里高 / 低？</div>
+        <p class="desc">支援张数按 WL 回合（12/20/25），且不与前排重复；加成表优先 WL 分表。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">箱活为什么没有支援？</div>
+        <p class="desc">箱活（普通活动）本来就没有支援卡组，只有前排加成。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">为什么实效和单张卡的技能数值不一样？</div>
+        <p class="desc">实效是整队口径：队长技能 + 其余四张 / 5，再叠加团分 / 吸取 / 异组 / 角色等级。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">指令发了没反应？</div>
+        <p class="desc">必须带 <code>/</code> 前缀或 <code>@机器人</code>；纯文本不会触发。回「上一条还在算」就等同一条出图再发。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      作者 · 南宮語墨
+    </div>
+  </div>
 
 </div>
 
