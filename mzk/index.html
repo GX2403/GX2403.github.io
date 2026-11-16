@@ -900,6 +900,16 @@
       </div>
 
       <div class="item">
+        <div class="cmd">精确 ＝ 枚举全部角色组合</div>
+        <p class="desc">带上 <code>精确</code> 后不再裁剪候选角色：枚举最多 8568 组角色组合（每角色取最优卡），每组都用精确 PT 评分，再对头部解做换卡细化；耗时约 1 秒，结果不会低于默认/持有模式。</p>
+      </div>
+
+      <div class="item">
+        <div class="cmd">持有 ＝ 整队只用持有卡</div>
+        <p class="desc">加上 <code>持有</code> 后前排 5 张全部从你 Suite 的持有卡里选（5 个不同角色，按预估 PT 取最高），常用于跟 Haruki bot 的组卡结果逐项核对。</p>
+      </div>
+
+      <div class="item">
         <div class="cmd">不写 #卡ID ＝ 当期四星优先</div>
         <p class="desc">预览组卡的目的是「看未持有卡打多少」：WL 默认当期 5 张四星（没有的按 JP 数据虚拟合成）；箱活把当期四星全部上，缺的位置用持有卡补齐（按预估 PT 选，角色不重复）。</p>
       </div>
@@ -927,6 +937,8 @@
         <tr><td>难度</td><td><code>ex / mas / apd / hd</code></td><td>也可以单独写难度</td></tr>
         <tr><td>火罐</td><td><code>10火 / 5火 / 7火</code></td><td>只影响 PT 倍率：1–5 火 = 5×N，6–10 火 = 27/29/31/33/35</td></tr>
         <tr><td>自身综合力</td><td><code>个人综合力373000</code></td><td>不写＝真实综合力（基础＋区域道具＋角色等级＋烤森玩偶＋大门＋称号，WL3 封顶 336000）；写了才用你给的值</td></tr>
+        <tr><td>持有</td><td><code>持有</code></td><td>整队只用持有卡（5 个不同角色），用来跟 Haruki bot 对账</td></tr>
+        <tr><td>精确</td><td><code>精确</code></td><td>枚举全部角色组合（最多 8568 组）+ 精确 PT，约 1s；可与 <code>持有</code> 组合</td></tr>
         <tr><td>手填加成</td><td><code>区域30 等级5 玩偶3 门4</code></td><td>Suite 没带区域道具等级时用，按 <code>基础×(1+区域+等级+玩偶+门)</code> 计算</td></tr>
         <tr><td>画布</td><td><code>画布</code></td><td>把烤森画布的固定加成算进基础（userMysekaiCanvases 决定哪张卡有画布）</td></tr>
         <tr><td>队友</td><td><code>队友实效230 / 队友综合250000</code></td><td>不写默认实效 <strong>200</strong>、综合 <strong>25w</strong>；四人按同强度算</td></tr>
