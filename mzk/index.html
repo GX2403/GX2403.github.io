@@ -901,12 +901,12 @@
 
       <div class="item">
         <div class="cmd">精确 ＝ 枚举全部角色组合</div>
-        <p class="desc">带上 <code>精确</code> 后不再裁剪候选角色：枚举最多 8568 组角色组合（每角色取最优卡），每组都用精确 PT 评分，再对头部解做换卡细化；耗时约 1 秒，结果不会低于默认/持有模式。</p>
+        <p class="desc">带上 <code>精确</code> 后按属性分组枚举角色组合（同属性 5 连能吃满 areaItem 的 all-match 加成），整队代理分 = 综合力 ×(1+总加成) × 实效，再对头部组合做精确 PT 评分；耗时约 1 秒，结果不低于默认/持有模式。</p>
       </div>
 
       <div class="item">
         <div class="cmd">持有 ＝ 整队只用持有卡</div>
-        <p class="desc">加上 <code>持有</code> 后前排 5 张全部从你 Suite 的持有卡里选（5 个不同角色，按预估 PT 取最高），常用于跟 Haruki bot 的组卡结果逐项核对。</p>
+        <p class="desc">加上 <code>持有</code> 后前排 5 张全部从你 Suite 的持有卡里选：按属性分组枚举角色组合（同属性吃满 areaItem all-match）+ 精确 PT 评分，5 个角色不重复。常用于核对「我自己这box能打多少」。</p>
       </div>
 
       <div class="item">
@@ -937,8 +937,13 @@
         <tr><td>难度</td><td><code>ex / mas / apd / hd</code></td><td>也可以单独写难度</td></tr>
         <tr><td>火罐</td><td><code>10火 / 5火 / 7火</code></td><td>只影响 PT 倍率：1–5 火 = 5×N，6–10 火 = 27/29/31/33/35</td></tr>
         <tr><td>自身综合力</td><td><code>个人综合力373000</code></td><td>不写＝真实综合力（基础＋区域道具＋角色等级＋烤森玩偶＋大门＋称号，WL3 封顶 336000）；写了才用你给的值</td></tr>
-        <tr><td>持有</td><td><code>持有</code></td><td>整队只用持有卡（5 个不同角色），用来跟 Haruki bot 对账</td></tr>
-        <tr><td>精确</td><td><code>精确</code></td><td>枚举全部角色组合（最多 8568 组）+ 精确 PT，约 1s；可与 <code>持有</code> 组合</td></tr>
+        <tr><td>持有</td><td><code>持有</code></td><td>整队只用持有卡（属性分组 + 精确 PT，5 个不同角色）</td></tr>
+        <tr><td>技能口径</td><td>默认 <code>avg_s1_5_leader</code></td><td>队伍实效 = <b>1 号位（队长）×1 + 其余四张 ×1/5</b>，所以实效最高的卡会排到 1 号位；S1~S5 取五人平均（自己 + 4×队友）/5；S6 由当时分数最高的人发动（队友更强时自动切给队友）。除该加权外，协力 PT 对 1 号位无额外加成（WL 终章当期卡 +20% 例外）</td></tr>
+        <tr><td>称号</td><td><code>称号500</code></td><td>手动指定称号加成（游戏内「称号加成」那行）；本版 master 查不到的称号会按 0 计，可用它补齐</td></tr>
+        <tr><td>实效下限</td><td><code>实效250</code></td><td>要求组卡自身实效 ≥ 250%；实效不参与排序（技能随机发动，权重小），只当门槛，达不到自动放宽</td></tr>
+        <tr><td>综合力口径</td><td>—</td><td>基础（等级/觉醒/剧情/突破）＋区域道具（同组合·同属性时用 AllMatch 率<b>替换</b>普通率）＋角色等级＋持有画布（<code>userMysekaiCanvases</code>）＋烤森玩偶＋大门＋称号；WL3 封顶 336000</td></tr>
+        <tr><td>PT 公式</td><td>—</td><td><code>floor(base × 歌曲系数 × (1+加成)) × 火倍率</code>，<code>base = 110 + 分数/17000 + min(13, 队友分数和/340000)</code></td></tr>
+        <tr><td>精确</td><td><code>精确</code></td><td>按属性分组枚举角色组合 + 精确 PT，约 1s；可与 <code>持有</code> 组合</td></tr>
         <tr><td>手填加成</td><td><code>区域30 等级5 玩偶3 门4</code></td><td>Suite 没带区域道具等级时用，按 <code>基础×(1+区域+等级+玩偶+门)</code> 计算</td></tr>
         <tr><td>画布</td><td><code>画布</code></td><td>把烤森画布的固定加成算进基础（userMysekaiCanvases 决定哪张卡有画布）</td></tr>
         <tr><td>队友</td><td><code>队友实效230 / 队友综合250000</code></td><td>不写默认实效 <strong>200</strong>、综合 <strong>25w</strong>；四人按同强度算</td></tr>
